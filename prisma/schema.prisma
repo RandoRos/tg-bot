@@ -12,7 +12,7 @@ datasource db {
 
 model User {
   id Int @id @default(autoincrement())
-  telegramId BigInt @unique
+  telegramId String @unique
   firstname String
   lastname String?
   role Role @relation(fields: [roleId], references: [id])

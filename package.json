@@ -12,11 +12,15 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "prisma": {
+    "seed": "ts-node ./prisma/seed.ts"
+  },
   "devDependencies": {
+    "@types/node-telegram-bot-api": "^0.64.7",
+    "nodemon": "^3.1.4",
     "prisma": "^5.17.0",
     "ts-node": "^10.9.2",
-    "typescript": "^5.5.4",
-    "nodemon": "^3.1.4"
+    "typescript": "^5.5.4"
   },
   "dependencies": {
     "@prisma/client": "^5.17.0",
