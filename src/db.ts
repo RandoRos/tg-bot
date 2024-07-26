@@ -30,6 +30,6 @@ export const addNewUser = async (user: User) => {
 
 export const getAllUsers = async () => {
   return await db.user.findMany({
-    select: { role: true, telegramId: true },
+    select: { role: true, telegramId: true, firstname: true },
   });
 };
