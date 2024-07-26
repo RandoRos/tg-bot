@@ -22,6 +22,8 @@ const bot = new TelegramBot(process.env.TELEGRAM_TOKEN, {
   polling: true,
 });
 
+console.log('Bot polling is started...');
+
 bot.setMyCommands(commands);
 
 bot.onText(/\/start/, async (msg) => {
@@ -35,8 +37,6 @@ bot.onText(/\/start/, async (msg) => {
       lastname: msg.chat.last_name,
     });
   }
-
-  // await bot.setMyCommands(commands);
 
   await bot.sendPhoto(
     chatId,
@@ -60,14 +60,15 @@ bot.onText(/\/start/, async (msg) => {
               },
             },
           ],
+          [
+            {
+              text: '📋 Show Admin commands',
+              callback_data: 'help',
+            },
+          ],
         ],
       },
     }
-  );
-
-  await bot.sendMessage(
-    chatId,
-    'If you have admin privileges you can also use the following commands:\n\n/adminusers - Get all users\n/adminhello [userId] [message] - Send a message to a user'
   );
 });
 
@@ -123,4 +124,33 @@ bot.onText(/\/adminhello (\d+) (.+)/, async (msg, match) => {
     console.error(`ERROR: ${err.message}`);
     bot.sendMessage(chatId, 'User not found');
   });
+});
+
+bot.on('callback_query', async (query) => {
+  const chatId = query.message?.chat.id || 0;
+  switch (query.data) {
+    case 'help':
+      bot.sendMessage(
+        chatId,
+        'List of Admin commands:\n\n/adminusers - Get all users\n/adminhello [userId] [message] - Send a message to a user',
+        {
+          reply_markup: {
+            inline_keyboard: [
+              [
+                {
+                  text: 'Close ❌',
+                  callback_data: 'close',
+                },
+              ],
+            ],
+          },
+        }
+      );
+      break;
+    case 'close':
+      bot.deleteMessage(chatId, query.message?.message_id || 0);
+      break;
+    default:
+      break;
+  }
 });
