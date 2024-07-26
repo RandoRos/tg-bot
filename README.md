@@ -9,7 +9,7 @@ The bot is straightforward and leverages several features provided by Telegram, 
 Before running the bot, you need to provide Telegram bot token into `.env` file under `TELEGRAM_TOKEN=[YOUR_TELEGRAM_BOT_TOKEN]`
 
 1. Install dependenices using command `npm install`
-2. Run database migration `npm run migrate`
+2. Run database create and seeding `npm run migrate`
 3. To start bot:
     - in **dev mode** run `npm run dev`
     - in **prod mode** run `npm run build && npm start`
